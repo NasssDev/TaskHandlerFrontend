@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Assuming you have this
+import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 function Login() {
@@ -13,8 +13,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await login(email, password);
-      navigate('/'); // Redirect to home after login
+      await login(email, password);
+      navigate('/');
     } catch (err) {
       setError('Failed to login');
     }

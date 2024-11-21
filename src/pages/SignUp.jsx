@@ -26,7 +26,6 @@ function SignUp() {
     setError('');
     setIsLoading(true);
 
-    // Basic validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setIsLoading(false);
