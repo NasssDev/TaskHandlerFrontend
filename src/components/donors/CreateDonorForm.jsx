@@ -36,13 +36,13 @@ function CreateDonorForm() {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create New Donor
+            Nouveau Donateur
           </h2>
         </div>
 
         {error && (
           <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700">Échec de la création du donateur</p>
           </div>
         )}
 
@@ -50,7 +50,7 @@ function CreateDonorForm() {
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name *
+                Nom *
               </label>
               <input
                 id="name"
@@ -65,7 +65,7 @@ function CreateDonorForm() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+                Courriel
               </label>
               <input
                 id="email"
@@ -79,7 +79,7 @@ function CreateDonorForm() {
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Phone
+                Téléphone
               </label>
               <input
                 id="phone"
@@ -93,7 +93,7 @@ function CreateDonorForm() {
 
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                Address
+                Adresse
               </label>
               <textarea
                 id="address"
@@ -107,7 +107,7 @@ function CreateDonorForm() {
 
             <div>
               <label htmlFor="donationType" className="block text-sm font-medium text-gray-700">
-                Donation Type
+                Type de Don
               </label>
               <select
                 id="donationType"
@@ -116,15 +116,15 @@ function CreateDonorForm() {
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option value="financial">Financial</option>
-                <option value="goods">Goods</option>
+                <option value="financial">Financier</option>
+                <option value="goods">Biens</option>
                 <option value="services">Services</option>
               </select>
             </div>
 
             <div>
               <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                Status
+                Statut
               </label>
               <select
                 id="status"
@@ -133,8 +133,8 @@ function CreateDonorForm() {
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
               </select>
             </div>
           </div>
@@ -145,13 +145,13 @@ function CreateDonorForm() {
               onClick={() => navigate('/donors')}
               className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Cancel
+              Annuler
             </button>
             <button
               type="submit"
               className="group relative w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Create Donor
+              Créer
             </button>
           </div>
         </form>

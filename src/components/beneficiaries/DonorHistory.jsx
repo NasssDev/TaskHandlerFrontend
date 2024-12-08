@@ -2,7 +2,7 @@ function DonorHistory({ history }) {
     return (
       <div className="space-y-4">
         {history.length === 0 ? (
-          <p className="text-gray-500">No donation history available.</p>
+          <p className="text-gray-500">Aucun historique de don disponible.</p>
         ) : (
           history.map((record) => (
             <div
@@ -13,14 +13,19 @@ function DonorHistory({ history }) {
                 <div>
                   <h3 className="font-medium">{record.Donor.name}</h3>
                   <p className="text-sm text-gray-600">
-                    Type: {record.donationType}
+                    Type: {record.donationType === 'financial' ? 'Financier' : 
+                          record.donationType === 'goods' ? 'Biens' : 'Services'}
                   </p>
                   <p className="text-sm text-gray-600">
-                    Amount: {record.amount} €
+                    Montant: {record.amount} €
                   </p>
                   {record.frequency && (
                     <p className="text-sm text-gray-600">
-                      Frequency: {record.frequency}
+                      Fréquence: {
+                        record.frequency === 'one-time' ? 'Unique' :
+                        record.frequency === 'monthly' ? 'Mensuel' :
+                        record.frequency === 'quarterly' ? 'Trimestriel' : 'Annuel'
+                      }
                     </p>
                   )}
                 </div>
@@ -30,10 +35,11 @@ function DonorHistory({ history }) {
                     record.status === 'active' ? 'bg-blue-100 text-blue-800' :
                     'bg-gray-100 text-gray-800'
                   }`}>
-                    {record.status}
+                    {record.status === 'completed' ? 'Terminé' :
+                     record.status === 'active' ? 'En cours' : 'En attente'}
                   </span>
                   <p className="text-sm text-gray-500 mt-1">
-                    {new Date(record.startDate).toLocaleDateString()}
+                    {new Date(record.startDate).toLocaleDateString('fr-FR')}
                   </p>
                 </div>
               </div>

@@ -30,7 +30,7 @@ function DonorList() {
   return (
     <div className="max-w-7xl mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Donors</h1>
+        <h1 className="text-2xl font-bold">Donateurs</h1>
         <div className="flex gap-4">
           <button
             onClick={() => setIsTableView(!isTableView)}
@@ -39,12 +39,12 @@ function DonorList() {
             {isTableView ? (
               <>
                 <i className="fas fa-grid-2"></i>
-                Grid View
+                Vue Grille
               </>
             ) : (
               <>
                 <i className="fas fa-table"></i>
-                Table View
+                Vue Tableau
               </>
             )}
           </button>
@@ -52,7 +52,7 @@ function DonorList() {
             to="/donors/new"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            Add New Donor
+            Nouveau Donateur
           </Link>
         </div>
       </div>
@@ -62,11 +62,11 @@ function DonorList() {
           <table className="min-w-full bg-white rounded-lg shadow border border-gray-200">
             <thead className="bg-gray-50">
               <tr className="border-b border-gray-200">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Beneficiaries</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Nom</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Courriel</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Type de Don</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">Statut</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bénéficiaires</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -91,7 +91,8 @@ function DonorList() {
                     className="px-6 py-4 whitespace-nowrap border-r cursor-pointer"
                     onClick={() => navigate(`/donors/${donor.id}`)}
                   >
-                    {donor.donationType}
+                    {donor.donationType === 'financial' ? 'Financier' : 
+                    donor.donationType === 'goods' ? 'Biens' : 'Services'}
                   </td>
                   <td 
                     className="px-6 py-4 whitespace-nowrap border-r cursor-pointer"
@@ -100,7 +101,7 @@ function DonorList() {
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                       donor.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                     }`}>
-                      {donor.status}
+                      {donor.status === 'active' ? 'Actif' : 'Inactif'}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -125,22 +126,25 @@ function DonorList() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {donors.map((donor) => (
-            <Link
-              key={donor.id}
-              to={`/donors/${donor.id}`}
-              className="block p-6 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+            <div 
+              key={donor.id} 
+              className="bg-white rounded-lg shadow p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+              onClick={() => navigate(`/donors/${donor.id}`)}
             >
               <h3 className="font-bold text-lg mb-2">{donor.name}</h3>
               <p className="text-gray-600 mb-2">{donor.email}</p>
               <p className="text-sm text-gray-500">
-                Type: {donor.donationType}
+                Type de Don: {donor.donationType === 'financial' ? 'Financier' : 
+                            donor.donationType === 'goods' ? 'Biens' : 'Services'}
               </p>
               <p className="text-sm text-gray-500">
-                Status: <span className={`${donor.status === 'active' ? 'text-green-500' : 'text-red-500'}`}>
-                  {donor.status}
+                Statut: <span className={`${
+                  donor.status === 'active' ? 'text-green-500' : 'text-red-500'
+                }`}>
+                  {donor.status === 'active' ? 'Actif' : 'Inactif'}
                 </span>
               </p>
-            </Link>
+            </div>
           ))}
         </div>
       )}

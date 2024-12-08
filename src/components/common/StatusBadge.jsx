@@ -22,9 +22,27 @@ function StatusBadge({ status, type = 'default' }) {
     }[status] || 'bg-gray-100 text-gray-800';
   };
 
+  const getStatusText = (status, type) => {
+    if (type === 'donor') {
+      return status === 'active' ? 'Actif' : 'Inactif';
+    }
+    if (type === 'beneficiary') {
+      return {
+        active: 'Actif',
+        inactive: 'Inactif',
+        urgent: 'Urgent'
+      }[status] || status;
+    }
+    return {
+      completed: 'Terminé',
+      pending: 'En attente',
+      failed: 'Échoué'
+    }[status] || status;
+  };
+
   return (
     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor()}`}>
-      {status}
+      {getStatusText(status, type)}
     </span>
   );
 }

@@ -44,13 +44,13 @@ function CreateBeneficiaryForm() {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create New Beneficiary
+            Nouveau Bénéficiaire
           </h2>
         </div>
         
         {error && (
           <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700">Échec de la création du bénéficiaire</p>
           </div>
         )}
 
@@ -58,7 +58,7 @@ function CreateBeneficiaryForm() {
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name *
+                Nom *
               </label>
               <input
                 id="name"
@@ -73,7 +73,7 @@ function CreateBeneficiaryForm() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+                Courriel
               </label>
               <input
                 id="email"
@@ -87,7 +87,7 @@ function CreateBeneficiaryForm() {
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Phone
+                Téléphone
               </label>
               <input
                 id="phone"
@@ -101,7 +101,7 @@ function CreateBeneficiaryForm() {
 
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                Address
+                Adresse
               </label>
               <textarea
                 id="address"
@@ -115,7 +115,7 @@ function CreateBeneficiaryForm() {
 
             <div>
               <label htmlFor="needType" className="block text-sm font-medium text-gray-700">
-                Need Type
+                Type de Besoin
               </label>
               <select
                 id="needType"
@@ -124,10 +124,10 @@ function CreateBeneficiaryForm() {
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="financial">Financial</option>
-                <option value="medical">Medical</option>
-                <option value="educational">Educational</option>
-                <option value="other">Other</option>
+                <option value="financial">Financier</option>
+                <option value="medical">Médical</option>
+                <option value="educational">Éducatif</option>
+                <option value="other">Autre</option>
               </select>
             </div>
 
@@ -154,7 +154,7 @@ function CreateBeneficiaryForm() {
                 loading ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'
               } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
             >
-              {loading ? 'Creating...' : 'Create Beneficiary'}
+              {loading ? 'Création en cours...' : 'Créer le Bénéficiaire'}
             </button>
           </div>
         </form>

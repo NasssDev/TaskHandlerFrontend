@@ -26,16 +26,16 @@ function DonorEditForm({ donor, onSubmit }) {
     <div className="flex justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
-          <h4 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Edit Donor
-          </h4>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Modifier le Donateur
+          </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name *
+                Nom *
               </label>
               <input
                 id="name"
@@ -50,7 +50,7 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+                Courriel
               </label>
               <input
                 id="email"
@@ -64,7 +64,7 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Phone
+                Téléphone
               </label>
               <input
                 id="phone"
@@ -78,7 +78,7 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                Address
+                Adresse
               </label>
               <textarea
                 id="address"
@@ -92,7 +92,7 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="donationType" className="block text-sm font-medium text-gray-700">
-                Donation Type *
+                Type de Don *
               </label>
               <select
                 id="donationType"
@@ -102,15 +102,15 @@ function DonorEditForm({ donor, onSubmit }) {
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option value="financial">Financial</option>
-                <option value="goods">Goods</option>
+                <option value="financial">Financier</option>
+                <option value="goods">Biens</option>
                 <option value="services">Services</option>
               </select>
             </div>
 
             <div>
               <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                Status *
+                Statut *
               </label>
               <select
                 id="status"
@@ -120,8 +120,8 @@ function DonorEditForm({ donor, onSubmit }) {
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
               </select>
             </div>
           </div>
@@ -131,7 +131,7 @@ function DonorEditForm({ donor, onSubmit }) {
               type="submit"
               className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Save Changes
+              Enregistrer les Modifications
             </button>
           </div>
         </form>

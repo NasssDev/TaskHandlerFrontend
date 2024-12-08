@@ -31,7 +31,7 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h4 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Link Beneficiary
+            Lier un Bénéficiaire
           </h4>
         </div>
 
@@ -39,7 +39,7 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
           <div className="rounded-md space-y-4">
             <div>
               <label htmlFor="beneficiaryId" className="block text-sm font-medium text-gray-700">
-                Beneficiary *
+                Bénéficiaire *
               </label>
               <select
                 id="beneficiaryId"
@@ -49,31 +49,33 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="">Select a beneficiary</option>
+                <option value="">Sélectionner un bénéficiaire</option>
                 {availableBeneficiaries.map(beneficiary => (
                   <option key={beneficiary.id} value={beneficiary.id}>
-                    {beneficiary.name} - {beneficiary.needType}
+                    {beneficiary.name} - {beneficiary.needType === 'financial' ? 'Financier' : 
+                                        beneficiary.needType === 'medical' ? 'Médical' : 
+                                        beneficiary.needType === 'educational' ? 'Éducatif' : 'Autre'}
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Donation Type</label>
+              <label className="block text-sm font-medium text-gray-700">Type de Don</label>
               <select
                 name="donationType"
                 value={formData.donationType}
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="financial">Financial</option>
-                <option value="goods">Goods</option>
+                <option value="financial">Financier</option>
+                <option value="goods">Biens</option>
                 <option value="services">Services</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Amount</label>
+              <label className="block text-sm font-medium text-gray-700">Montant</label>
               <input
                 type="number"
                 name="amount"
@@ -85,17 +87,17 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Frequency</label>
+              <label className="block text-sm font-medium text-gray-700">Fréquence</label>
               <select
                 name="frequency"
                 value={formData.frequency}
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="one-time">One Time</option>
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="yearly">Yearly</option>
+                <option value="one-time">Unique</option>
+                <option value="monthly">Mensuel</option>
+                <option value="quarterly">Trimestriel</option>
+                <option value="yearly">Annuel</option>
               </select>
             </div>
 
@@ -117,13 +119,13 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
               onClick={onCancel}
               className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Cancel
+              Annuler
             </button>
             <button
               type="submit"
               className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Link Beneficiary
+              Lier le Bénéficiaire
             </button>
           </div>
         </form>

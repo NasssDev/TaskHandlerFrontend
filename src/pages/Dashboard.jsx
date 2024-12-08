@@ -49,26 +49,26 @@ function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8">Tableau de Bord</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard
-          title="Total Donors"
+          title="Total Donateurs"
           value={stats.totalDonors}
           link="/donors"
         />
         <StatCard
-          title="Active Donors"
+          title="Donateurs Actifs"
           value={stats.activeDonors}
           link="/donors"
         />
         <StatCard
-          title="Total Beneficiaries"
+          title="Total Bénéficiaires"
           value={stats.totalBeneficiaries}
           link="/beneficiaries"
         />
         <StatCard
-          title="Urgent Cases"
+          title="Cas Urgents"
           value={stats.urgentBeneficiaries}
           link="/beneficiaries"
           urgent
@@ -77,7 +77,7 @@ function Dashboard() {
 
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold mb-4">Recent Donors</h2>
+          <h2 className="text-xl font-bold mb-4">Donateurs Récents</h2>
           <div className="space-y-4">
             {recentDonors.map(donor => (
               <Link
@@ -95,7 +95,7 @@ function Dashboard() {
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold mb-4">Urgent Cases</h2>
+          <h2 className="text-xl font-bold mb-4">Cas Urgents</h2>
           <div className="space-y-4">
             {urgentBeneficiaries.map(beneficiary => (
               <Link

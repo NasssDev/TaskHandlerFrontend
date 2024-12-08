@@ -32,14 +32,14 @@ function BeneficiaryList() {
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="max-w-7xl mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Beneficiaries</h1>
+        <h1 className="text-2xl font-bold">Bénéficiaires</h1>
         <Link
           to="/beneficiaries/new"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Add New Beneficiary
+          Nouveau Bénéficiaire
         </Link>
       </div>
 
@@ -49,9 +49,9 @@ function BeneficiaryList() {
           onChange={(e) => setFilter(e.target.value)}
           className="p-2 border rounded"
         >
-          <option value="all">All Status</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
+          <option value="all">Tous les Statuts</option>
+          <option value="active">Actif</option>
+          <option value="inactive">Inactif</option>
           <option value="urgent">Urgent</option>
         </select>
       </div>
