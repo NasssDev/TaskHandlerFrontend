@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { beneficiaryService } from '../../services/beneficiaryService';
 import BeneficiaryEditForm from '../../components/beneficiaries/BeneficiaryEditForm';
 import DonorHistory from '../../components/beneficiaries/DonorHistory';
+import { translateDonationType, translateStatus } from '../../utils/translations';
 
 function BeneficiaryDetail() {
   const { id } = useParams();
@@ -93,9 +94,8 @@ function BeneficiaryDetail() {
             </div>
             <div>
               <h3 className="font-medium text-gray-700">Détails du besoin</h3>
-              <p className="text-gray-600">Type: {beneficiary.needType === 'financial' ? 'Financier' : 
-                            beneficiary.needType === 'goods' ? 'Biens' : 'Services'}</p>
-              <p className="text-gray-600">Statut: {beneficiary.status === 'active' ? 'Actif' : 'Inactif'}</p>
+              <p className="text-gray-600">Type: {translateDonationType(beneficiary.needType)}</p>
+              <p className="text-gray-600">Statut: {translateStatus(beneficiary.status, 'beneficiary')}</p>
               <p className="text-gray-600">Description: {beneficiary.description}</p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { donorService } from '../../services/donorService';
 import { beneficiaryService } from '../../services/beneficiaryService';
 import DonorEditForm from '../../components/donors/DonorEditForm';
 import LinkBeneficiaryForm from '../../components/donors/LinkBeneficiaryForm';
+import { translateDonationType, translateStatus } from '../../utils/translations';
 
 function DonorDetail() {
   const { id } = useParams();
@@ -110,9 +111,8 @@ function DonorDetail() {
             </div>
             <div>
               <h3 className="font-medium text-gray-700">Détails de la donation</h3>
-              <p className="text-gray-600">Type: {donor.donationType === 'financial' ? 'Financier' : 
-                            donor.donationType === 'goods' ? 'Biens' : 'Services'}</p>
-              <p className="text-gray-600">Statut: {donor.status === 'active' ? 'Actif' : 'Inactif'}</p>
+              <p className="text-gray-600">Type: {translateDonationType(donor.donationType)}</p>
+              <p className="text-gray-600">Statut: {translateStatus(donor.status, 'donor')}</p>
             </div>
           </div>
         )}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { translateDonationType, translateFrequency } from '../../utils/translations';
 
 function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
   const [formData, setFormData] = useState({
@@ -68,9 +69,9 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="financial">Financier</option>
-                <option value="goods">Biens</option>
-                <option value="services">Services</option>
+                <option value="financial">{translateDonationType('financial')}</option>
+                <option value="goods">{translateDonationType('goods')}</option>
+                <option value="services">{translateDonationType('services')}</option>
               </select>
             </div>
 
@@ -94,10 +95,10 @@ function LinkBeneficiaryForm({ availableBeneficiaries, onSubmit, onCancel }) {
                 onChange={handleChange}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
-                <option value="one-time">Unique</option>
-                <option value="monthly">Mensuel</option>
-                <option value="quarterly">Trimestriel</option>
-                <option value="yearly">Annuel</option>
+                <option value="one-time">{translateFrequency('one-time')}</option>
+                <option value="monthly">{translateFrequency('monthly')}</option>
+                <option value="quarterly">{translateFrequency('quarterly')}</option>
+                <option value="yearly">{translateFrequency('yearly')}</option>
               </select>
             </div>
 

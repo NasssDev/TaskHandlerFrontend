@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { beneficiaryService } from '../../services/beneficiaryService';
+import { translateStatus } from '../../utils/translations';
 
 function BeneficiaryList() {
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -50,9 +51,9 @@ function BeneficiaryList() {
           className="p-2 border rounded"
         >
           <option value="all">Tous les Statuts</option>
-          <option value="active">Actif</option>
-          <option value="inactive">Inactif</option>
-          <option value="urgent">Urgent</option>
+          <option value="active">{translateStatus('active', 'beneficiary')}</option>
+          <option value="inactive">{translateStatus('inactive', 'beneficiary')}</option>
+          <option value="urgent">{translateStatus('urgent', 'beneficiary')}</option>
         </select>
       </div>
 
@@ -74,7 +75,7 @@ function BeneficiaryList() {
                 ${beneficiary.status === 'urgent' ? 'text-red-500' : ''}
                 ${beneficiary.status === 'inactive' ? 'text-gray-500' : ''}
               `}>
-                {beneficiary.status}
+                {translateStatus(beneficiary.status, 'beneficiary')}
               </span>
             </p>
           </Link>

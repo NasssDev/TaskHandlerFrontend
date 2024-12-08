@@ -1,3 +1,5 @@
+import { translateDonationType, translateStatus } from '../../utils/translations';
+
 function DonorHistory({ history }) {
     return (
       <div className="space-y-4">
@@ -35,8 +37,7 @@ function DonorHistory({ history }) {
                     record.status === 'active' ? 'bg-blue-100 text-blue-800' :
                     'bg-gray-100 text-gray-800'
                   }`}>
-                    {record.status === 'completed' ? 'Terminé' :
-                     record.status === 'active' ? 'En cours' : 'En attente'}
+                    {translateStatus(record.status)}
                   </span>
                   <p className="text-sm text-gray-500 mt-1">
                     {new Date(record.startDate).toLocaleDateString('fr-FR')}

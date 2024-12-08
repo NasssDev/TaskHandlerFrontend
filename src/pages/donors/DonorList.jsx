@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { donorService } from '../../services/donorService';
+import { translateDonationType, translateStatus } from '../../utils/translations';
+import StatusBadge from '../../components/common/StatusBadge';
 
 function DonorList() {
   const [donors, setDonors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isTableView, setIsTableView] = useState(false);
+  const [donationTypeFilter, setDonationTypeFilter] = useState('all');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +26,10 @@ function DonorList() {
       setLoading(false);
     }
   };
+
+  const filteredDonors = donors.filter(donor => 
+    donationTypeFilter === 'all' ? true : donor.donationType === donationTypeFilter
+  );
 
   if (loading) return <div className="text-center mt-8">Loading...</div>;
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
@@ -56,6 +63,18 @@ function DonorList() {
           </Link>
         </div>
       </div>
+    <div className="mb-4">
+        <select
+            value={donationTypeFilter}
+            onChange={(e) => setDonationTypeFilter(e.target.value)}
+            className="bg-white border border-gray-300 rounded px-3 py-2"
+          >
+            <option value="all">Tous les types</option>
+            <option value="financial">{translateDonationType('financial')}</option>
+            <option value="goods">{translateDonationType('goods')}</option>
+            <option value="services">{translateDonationType('services')}</option>
+        </select>
+      </div>
 
       {isTableView ? (
         <div className="overflow-x-auto">
@@ -70,7 +89,7 @@ function DonorList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {donors.map((donor) => (
+              {filteredDonors.map((donor) => (
                 <tr 
                   key={donor.id}
                   className="hover:bg-gray-50 border-b border-gray-200"
@@ -91,18 +110,13 @@ function DonorList() {
                     className="px-6 py-4 whitespace-nowrap border-r cursor-pointer"
                     onClick={() => navigate(`/donors/${donor.id}`)}
                   >
-                    {donor.donationType === 'financial' ? 'Financier' : 
-                    donor.donationType === 'goods' ? 'Biens' : 'Services'}
+                    {translateDonationType(donor.donationType)}
                   </td>
                   <td 
                     className="px-6 py-4 whitespace-nowrap border-r cursor-pointer"
                     onClick={() => navigate(`/donors/${donor.id}`)}
                   >
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      donor.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}>
-                      {donor.status === 'active' ? 'Actif' : 'Inactif'}
-                    </span>
+                    <StatusBadge status={donor.status} type="donor" />
                   </td>
                   <td className="px-6 py-4">
                     {donor.beneficiaries?.map((beneficiary, index) => (
@@ -125,7 +139,7 @@ function DonorList() {
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {donors.map((donor) => (
+          {filteredDonors.map((donor) => (
             <div 
               key={donor.id} 
               className="bg-white rounded-lg shadow p-6 cursor-pointer hover:bg-gray-50 transition-colors"
@@ -134,14 +148,13 @@ function DonorList() {
               <h3 className="font-bold text-lg mb-2">{donor.name}</h3>
               <p className="text-gray-600 mb-2">{donor.email}</p>
               <p className="text-sm text-gray-500">
-                Type de Don: {donor.donationType === 'financial' ? 'Financier' : 
-                            donor.donationType === 'goods' ? 'Biens' : 'Services'}
+                Type de Don: {translateDonationType(donor.donationType)}
               </p>
               <p className="text-sm text-gray-500">
                 Statut: <span className={`${
                   donor.status === 'active' ? 'text-green-500' : 'text-red-500'
                 }`}>
-                  {donor.status === 'active' ? 'Actif' : 'Inactif'}
+                  {translateStatus(donor.status, 'donor')}
                 </span>
               </p>
             </div>
