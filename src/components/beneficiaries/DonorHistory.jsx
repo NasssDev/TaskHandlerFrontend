@@ -16,7 +16,7 @@ function DonorHistory({ history }) {
                     Type: {record.donationType}
                   </p>
                   <p className="text-sm text-gray-600">
-                    Amount: ${record.amount}
+                    Amount: {record.amount} €
                   </p>
                   {record.frequency && (
                     <p className="text-sm text-gray-600">
