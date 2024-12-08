@@ -67,13 +67,13 @@ function BeneficiaryDetail() {
               onClick={() => setIsEditing(!isEditing)}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
-              {isEditing ? 'Cancel' : 'Edit'}
+              {isEditing ? 'Annuler' : 'Modifier'}
             </button>
             <button
               onClick={handleDelete}
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
             >
-              Delete
+              Supprimer
             </button>
           </div>
         </div>
@@ -92,16 +92,17 @@ function BeneficiaryDetail() {
               <p className="text-gray-600">Address: {beneficiary.address}</p>
             </div>
             <div>
-              <h3 className="font-medium text-gray-700">Need Details</h3>
-              <p className="text-gray-600">Type: {beneficiary.needType}</p>
-              <p className="text-gray-600">Status: {beneficiary.status}</p>
+              <h3 className="font-medium text-gray-700">Détails du besoin</h3>
+              <p className="text-gray-600">Type: {beneficiary.needType === 'financial' ? 'Financier' : 
+                            beneficiary.needType === 'goods' ? 'Biens' : 'Services'}</p>
+              <p className="text-gray-600">Statut: {beneficiary.status === 'active' ? 'Actif' : 'Inactif'}</p>
               <p className="text-gray-600">Description: {beneficiary.description}</p>
             </div>
           </div>
         )}
 
         <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Donor History</h2>
+        <h2 className="text-xl font-bold mb-4">Historique des donations</h2>
           <DonorHistory history={donorHistory} />
         </div>
       </div>

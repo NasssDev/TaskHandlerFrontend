@@ -65,12 +65,20 @@ function DonorDetail() {
     }
   };
 
-  if (loading) return <div className="text-center mt-8">Loading...</div>;
+  if (loading) return <div className="text-center mt-8">Chargement...</div>;
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
-  if (!donor) return <div className="text-center mt-8">Donor not found</div>;
-
+  if (!donor) return <div className="text-center mt-8">Donateur non trouvé</div>;
   return (
     <div className="max-w-4xl mx-auto p-4">
+      <div className="mb-4">
+        <button
+          onClick={() => navigate('/donors')}
+          className="text-gray-600 hover:text-gray-800 flex items-center gap-2"
+        >
+          <span>←</span>
+          <span>Retour aux donateurs</span>
+        </button>
+      </div>
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">{donor.name}</h1>
@@ -79,13 +87,13 @@ function DonorDetail() {
               onClick={() => setIsEditing(!isEditing)}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
-              {isEditing ? 'Cancel' : 'Edit'}
+              {isEditing ? 'Annuler' : 'Modifier'}
             </button>
             <button
               onClick={handleDelete}
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
             >
-              Delete
+              Supprimer
             </button>
           </div>
         </div>
@@ -95,27 +103,28 @@ function DonorDetail() {
         ) : (
           <div className="space-y-4">
             <div>
-              <h3 className="font-medium text-gray-700">Contact Information</h3>
+              <h3 className="font-medium text-gray-700">Informations de contact</h3>
               <p className="text-gray-600">Email: {donor.email}</p>
-              <p className="text-gray-600">Phone: {donor.phone}</p>
-              <p className="text-gray-600">Address: {donor.address}</p>
+              <p className="text-gray-600">Téléphone: {donor.phone}</p>
+              <p className="text-gray-600">Adresse: {donor.address}</p>
             </div>
             <div>
-              <h3 className="font-medium text-gray-700">Donation Details</h3>
-              <p className="text-gray-600">Type: {donor.donationType}</p>
-              <p className="text-gray-600">Status: {donor.status}</p>
+              <h3 className="font-medium text-gray-700">Détails de la donation</h3>
+              <p className="text-gray-600">Type: {donor.donationType === 'financial' ? 'Financier' : 
+                            donor.donationType === 'goods' ? 'Biens' : 'Services'}</p>
+              <p className="text-gray-600">Statut: {donor.status === 'active' ? 'Actif' : 'Inactif'}</p>
             </div>
           </div>
         )}
 
         <div className="mt-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Linked Beneficiaries</h2>
+            <h2 className="text-xl font-bold">Bénéficiaires liés</h2>
             <button
               onClick={() => setIsLinking(!isLinking)}
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
             >
-              {isLinking ? 'Cancel' : 'Link New Beneficiary'}
+              {isLinking ? 'Annuler' : 'Lier un nouveau bénéficiaire'}
             </button>
           </div>
 
@@ -141,7 +150,7 @@ function DonorDetail() {
                   <div>
                     <h3 className="font-medium">{beneficiary.name}</h3>
                     <p className="text-sm text-gray-600">
-                      Need Type: {beneficiary.needType}
+                        Type de besoin: {beneficiary.needType}
                     </p>
                   </div>
                   <span className={`inline-block px-2 py-1 rounded text-sm ${
