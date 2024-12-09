@@ -1,13 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { donorService } from '../../services/donorService';
 
-function DonorEditForm({ donor, onSubmit }) {
+function CreateDonorForm() {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    name: donor.name,
-    email: donor.email,
-    phone: donor.phone,
-    address: donor.address,
-    donationType: donor.donationType,
-    status: donor.status
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    donationType: 'financial',
+    status: 'active'
   });
 
   const handleChange = (e) => {
@@ -17,19 +21,30 @@ function DonorEditForm({ donor, onSubmit }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    try {
+      await donorService.createDonor(formData);
+      navigate('/donors');
+    } catch (err) {
+      setError('Failed to create donor');
+    }
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Modifier le Donateur
+            Nouveau Donateur
           </h2>
         </div>
+
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+            <p className="text-red-700">Échec de la création du donateur</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="rounded-md shadow-sm space-y-4">
@@ -92,12 +107,11 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="donationType" className="block text-sm font-medium text-gray-700">
-                Type de Don *
+                Type de Don
               </label>
               <select
                 id="donationType"
                 name="donationType"
-                required
                 value={formData.donationType}
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -110,12 +124,11 @@ function DonorEditForm({ donor, onSubmit }) {
 
             <div>
               <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                Statut *
+                Statut
               </label>
               <select
                 id="status"
                 name="status"
-                required
                 value={formData.status}
                 onChange={handleChange}
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -126,12 +139,19 @@ function DonorEditForm({ donor, onSubmit }) {
             </div>
           </div>
 
-          <div>
+          <div className="flex justify-end space-x-2">
+            <button
+              type="button"
+              onClick={() => navigate('/donors')}
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Annuler
+            </button>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Enregistrer les Modifications
+              Créer
             </button>
           </div>
         </form>
@@ -140,4 +160,4 @@ function DonorEditForm({ donor, onSubmit }) {
   );
 }
 
-export default DonorEditForm;
+export default CreateDonorForm; 

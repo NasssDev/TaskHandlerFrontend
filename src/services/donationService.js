@@ -16,4 +16,4 @@ export const donationService = {
     const response = await axios.get(`${API_URL}${API_ROUTES.DONATIONS.BY_BENEFICIARY(beneficiaryId)}`);
     return response.data;
   }
-}; 
+};

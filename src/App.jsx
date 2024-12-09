@@ -9,6 +9,9 @@ import DonorDetail from './pages/donors/DonorDetail';
 import BeneficiaryList from './pages/beneficiaries/BeneficiaryList';
 import BeneficiaryDetail from './pages/beneficiaries/BeneficiaryDetail';
 import Dashboard from './pages/Dashboard';
+import CreateBeneficiaryForm from './components/beneficiaries/CreateBeneficiaryForm';
+import CreateDonorForm from './components/donors/CreateDonorForm';  
+
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -44,6 +47,14 @@ function App() {
           }
         />
         <Route
+          path="/donors/new"
+          element={
+            <ProtectedRoute>
+              <CreateDonorForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/beneficiaries"
           element={
             <ProtectedRoute>
@@ -59,6 +70,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/beneficiaries/new"
+          element={
+            <ProtectedRoute>
+              <CreateBeneficiaryForm />
+            </ProtectedRoute>
+          }
+        />   
       </Routes>
     </div>
   );

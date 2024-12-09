@@ -1,13 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createBeneficiary } from '../../services/api';
 
-function DonorEditForm({ donor, onSubmit }) {
+function CreateBeneficiaryForm() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
   const [formData, setFormData] = useState({
-    name: donor.name,
-    email: donor.email,
-    phone: donor.phone,
-    address: donor.address,
-    donationType: donor.donationType,
-    status: donor.status
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    needType: 'financial',
+    status: 'active',
+    description: ''
   });
 
   const handleChange = (e) => {
@@ -17,19 +24,35 @@ function DonorEditForm({ donor, onSubmit }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    setLoading(true);
+    setError(null);
+
+    try {
+      await createBeneficiary(formData);
+      navigate('/beneficiaries'); // Redirect to beneficiaries list
+    } catch (error) {
+      setError(error.response?.data?.message || 'Error creating beneficiary');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Modifier le Donateur
+            Nouveau Bénéficiaire
           </h2>
         </div>
+        
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+            <p className="text-red-700">Échec de la création du bénéficiaire</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="rounded-md shadow-sm space-y-4">
@@ -91,47 +114,47 @@ function DonorEditForm({ donor, onSubmit }) {
             </div>
 
             <div>
-              <label htmlFor="donationType" className="block text-sm font-medium text-gray-700">
-                Type de Don *
+              <label htmlFor="needType" className="block text-sm font-medium text-gray-700">
+                Type de Besoin
               </label>
               <select
-                id="donationType"
-                name="donationType"
-                required
-                value={formData.donationType}
+                id="needType"
+                name="needType"
+                value={formData.needType}
                 onChange={handleChange}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
                 <option value="financial">Financier</option>
-                <option value="goods">Biens</option>
-                <option value="services">Services</option>
+                <option value="medical">Médical</option>
+                <option value="educational">Éducatif</option>
+                <option value="other">Autre</option>
               </select>
             </div>
 
             <div>
-              <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                Statut *
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                Description
               </label>
-              <select
-                id="status"
-                name="status"
-                required
-                value={formData.status}
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
                 onChange={handleChange}
+                rows="4"
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option value="active">Actif</option>
-                <option value="inactive">Inactif</option>
-              </select>
+              />
             </div>
           </div>
 
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={loading}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
+                loading ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'
+              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
             >
-              Enregistrer les Modifications
+              {loading ? 'Création en cours...' : 'Créer le Bénéficiaire'}
             </button>
           </div>
         </form>
@@ -140,4 +163,4 @@ function DonorEditForm({ donor, onSubmit }) {
   );
 }
 
-export default DonorEditForm;
+export default CreateBeneficiaryForm;   

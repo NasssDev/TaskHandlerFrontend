@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { donorService } from '../../services/donorService';
 import { beneficiaryService } from '../../services/beneficiaryService';
+import DonorEditForm from '../../components/donors/DonorEditForm';
+import LinkBeneficiaryForm from '../../components/donors/LinkBeneficiaryForm';
+import { translateDonationType, translateStatus } from '../../utils/translations';
 
 function DonorDetail() {
   const { id } = useParams();
@@ -11,6 +14,7 @@ function DonorDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isLinking, setIsLinking] = useState(false);
 
   useEffect(() => {
     fetchDonorData();
@@ -52,12 +56,30 @@ function DonorDetail() {
     }
   };
 
-  if (loading) return <div className="text-center mt-8">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
-  if (!donor) return <div className="text-center mt-8">Donor not found</div>;
+  const handleLinkBeneficiary = async (linkData) => {
+    try {
+      await donorService.linkBeneficiary(id, linkData);
+      setIsLinking(false);
+      fetchDonorData();
+    } catch (err) {
+      setError('Failed to link beneficiary');
+    }
+  };
 
+  if (loading) return <div className="text-center mt-8">Chargement...</div>;
+  if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
+  if (!donor) return <div className="text-center mt-8">Donateur non trouvé</div>;
   return (
     <div className="max-w-4xl mx-auto p-4">
+      <div className="mb-4">
+        <button
+          onClick={() => navigate('/donors')}
+          className="text-gray-600 hover:text-gray-800 flex items-center gap-2"
+        >
+          <span>←</span>
+          <span>Retour aux donateurs</span>
+        </button>
+      </div>
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">{donor.name}</h1>
@@ -66,13 +88,13 @@ function DonorDetail() {
               onClick={() => setIsEditing(!isEditing)}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
-              {isEditing ? 'Cancel' : 'Edit'}
+              {isEditing ? 'Annuler' : 'Modifier'}
             </button>
             <button
               onClick={handleDelete}
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
             >
-              Delete
+              Supprimer
             </button>
           </div>
         </div>
@@ -80,21 +102,72 @@ function DonorDetail() {
         {isEditing ? (
           <DonorEditForm donor={donor} onSubmit={handleUpdate} />
         ) : (
-          <DonorInfo donor={donor} />
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium text-gray-700">Informations de contact</h3>
+              <p className="text-gray-600">Email: {donor.email}</p>
+              <p className="text-gray-600">Téléphone: {donor.phone}</p>
+              <p className="text-gray-600">Adresse: {donor.address}</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700">Détails de la donation</h3>
+              <p className="text-gray-600">Type: {translateDonationType(donor.donationType)}</p>
+              <p className="text-gray-600">Statut: {translateStatus(donor.status, 'donor')}</p>
+            </div>
+          </div>
         )}
 
         <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Linked Beneficiaries</h2>
-          <BeneficiaryList
-            beneficiaries={donor.Beneficiaries || []}
-            availableBeneficiaries={beneficiaries}
-            donorId={id}
-            onLink={fetchDonorData}
-          />
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Bénéficiaires liés</h2>
+            <button
+              onClick={() => setIsLinking(!isLinking)}
+              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              {isLinking ? 'Annuler' : 'Lier un nouveau bénéficiaire'}
+            </button>
+          </div>
+
+          {isLinking && (
+            <div className="mb-6">
+              <LinkBeneficiaryForm
+                availableBeneficiaries={beneficiaries.filter(b => 
+                  !donor.Beneficiaries?.some(db => db.id === b.id)
+                )}
+                onSubmit={handleLinkBeneficiary}
+                onCancel={() => setIsLinking(false)}
+              />
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {donor.Beneficiaries?.map(beneficiary => (
+              <div
+                key={beneficiary.id}
+                className="border rounded-lg p-4 hover:bg-gray-50"
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-medium">{beneficiary.name}</h3>
+                    <p className="text-sm text-gray-600">
+                        Type de besoin: {beneficiary.needType}
+                    </p>
+                  </div>
+                  <span className={`inline-block px-2 py-1 rounded text-sm ${
+                    beneficiary.status === 'urgent' ? 'bg-red-100 text-red-800' :
+                    beneficiary.status === 'active' ? 'bg-green-100 text-green-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {beneficiary.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default DonorDetail; 
+export default DonorDetail;

@@ -15,12 +15,13 @@ function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <img 
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%234CAF50' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E"
-              alt="Logo"
-              className="h-8 w-8"
-            />
-            <span className="ml-2 text-xl font-bold">Task Handler</span>
+            <button 
+              onClick={() => navigate('/')} 
+              className="flex items-center hover:opacity-80 focus:outline-none"
+            >
+              <span className="text-2xl" role="img" aria-label="Watermelon">🍉</span>
+              <span className="ml-2 text-xl font-bold">FreeGAZA</span>
+            </button>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -29,7 +30,7 @@ function Header() {
               onClick={handleLogout}
               className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
-              Logout
+              Déconnexion
             </button>
           </div>
         </div>
