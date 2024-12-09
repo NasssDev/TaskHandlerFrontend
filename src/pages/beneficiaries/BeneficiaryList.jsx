@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { beneficiaryService } from '../../services/beneficiaryService';
 import { translateStatus } from '../../utils/translations';
-import StatusBadge from '../../components/StatusBadge';
+import StatusBadge from '../../components/common/StatusBadge';
 
 function BeneficiaryList() {
   const [beneficiaries, setBeneficiaries] = useState([]);
