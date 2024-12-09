@@ -119,14 +119,15 @@ function DonorList() {
                     <StatusBadge status={donor.status} type="donor" />
                   </td>
                   <td className="px-6 py-4">
-                    {donor.beneficiaries?.map((beneficiary, index) => (
+                    {console.log(donor.beneficiaries)}
+                    {donor.Beneficiaries?.map((beneficiary, index) => (
                       <span 
                         key={beneficiary.id} 
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/beneficiaries/${beneficiary.id}`);
                         }}
-                        className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 cursor-pointer hover:bg-gray-200 transition-colors"
+                        className="inline-block bg-sky-100 rounded-full px-3 py-1 text-sm font-semibold text-sky-700 mr-2 mb-2 cursor-pointer hover:bg-sky-200 transition-colors"
                       >
                         {beneficiary.name}
                       </span>
