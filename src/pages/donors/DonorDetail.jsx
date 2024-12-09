@@ -6,6 +6,7 @@ import DonorEditForm from '../../components/donors/DonorEditForm';
 import LinkBeneficiaryForm from '../../components/donors/LinkBeneficiaryForm';
 import { translateDonationType, translateStatus } from '../../utils/translations';
 
+
 function DonorDetail() {
   const { id } = useParams();
   const navigate = useNavigate();

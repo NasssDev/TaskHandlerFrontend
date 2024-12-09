@@ -17,7 +17,7 @@ function App() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen">
       {isAuthenticated && <Header />}
       <Routes>
         <Route path="/login" element={<Login />} />

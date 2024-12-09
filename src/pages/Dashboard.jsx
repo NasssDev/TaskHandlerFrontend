@@ -87,7 +87,7 @@ function Dashboard() {
               >
                 <div className="font-medium">{donor.name}</div>
                 <div className="text-sm text-gray-500">
-                  Type: {donor.donationType}
+                  Type: {translateDonationType(donor.donationType)}
                 </div>
               </Link>
             ))}
@@ -105,7 +105,7 @@ function Dashboard() {
               >
                 <div className="font-medium">{beneficiary.name}</div>
                 <div className="text-sm text-gray-500">
-                  Need: {beneficiary.needType}
+                  Need: {translateDonationType(beneficiary.needType)}
                 </div>
               </Link>
             ))}
