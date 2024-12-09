@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donorService } from '../services/donorService';
 import { beneficiaryService } from '../services/beneficiaryService';
+import { translateDonationType } from '../utils/translations';
+
 
 function Dashboard() {
   const [stats, setStats] = useState({
